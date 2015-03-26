@@ -138,6 +138,14 @@ public class GameScreen extends GLScreen
            level.Draw();//(deltaTime, batcher);
            drawHud();
 
+           batcher.beginBatch(Assets.items);
+
+              batcher.drawSprite(200, 1080 - 100, 228, 62, Assets.redHealthRegion);
+              batcher.drawSprite(200, 1080 - 100, 228, 62, Assets.greenHealthRegion);
+              batcher.drawSprite(200, 1080 - 97,  228, 100, Assets.blackHealthRegion);
+
+           batcher.endBatch();
+
         gl.glDisable(GL10.GL_BLEND);
     }
 

@@ -12,12 +12,12 @@ import com.badlogic.androidgames.framework.math.Vector2;
 ///  GUILLAUME SWOLFS
 ///  GUILLAUMESOFT
 /// </summary>
-class Gem extends DynamicGameObject
+class Dragon extends DynamicGameObject
 {
     //////////////////////////////////////////////
     // CLASS STATIC VARAIBLES
-    public static float GEM_WIDTH  = 40.0f;
-    public static float GEM_HEIGHT = 40.0f;
+    public static float DRAGON_WIDTH  = 40.0f;
+    public static float DRAGON_HEIGHT = 40.0f;
 
     //////////////////////////////////////////////
     // CLASS VARAIBLES
@@ -28,9 +28,9 @@ class Gem extends DynamicGameObject
     /// <summary>
     /// Constructs a new gem.
     /// </summary>
-    public Gem(float x, float y)
+    public Dragon(float x, float y)
     {
-        super(x, y, GEM_WIDTH, GEM_HEIGHT);
+        super(x, y, DRAGON_WIDTH, DRAGON_HEIGHT);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ class Gem extends DynamicGameObject
         final float BounceSync   = -0.75f;
 
         double t = stateTime * BounceRate + position.x * BounceSync;
-        bounce = (float)Math.sin(t) * BounceHeight * GEM_HEIGHT;
+        bounce = (float)Math.sin(t) * BounceHeight * DRAGON_HEIGHT;
     }
 
     /// <summary>
@@ -62,9 +62,9 @@ class Gem extends DynamicGameObject
     /// </summary>
     public void Draw(SpriteBatcher batcher)
     {
-        batcher.beginBatch(Assets.tile);
+        batcher.beginBatch(Assets.objects);
 
-           batcher.drawSprite(position.x, position.y + bounce, GEM_WIDTH, GEM_HEIGHT, Assets.gemRegion);
+           batcher.drawSprite(position.x, position.y + bounce, DRAGON_WIDTH, DRAGON_HEIGHT, Assets.dragon);
 
         batcher.endBatch();
     }

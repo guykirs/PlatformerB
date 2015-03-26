@@ -37,7 +37,6 @@ public class Level implements Disposable
     // FINAL VARAIBLES TYPES
     private static final Vector2 InvalidPosition = new Vector2(-1, -1);
 
-
     ////////////////////////////////////////////////////
     // CLASS PRIVATE VARAIBLES
 
@@ -85,6 +84,15 @@ public class Level implements Disposable
     private ArrayList<String>   sInfo = new ArrayList<>();
     private List<Gem>           gems;
     private List<Enemy>         enamies;
+    private List<Axe>           axe;
+    private List<Bowl>          bowl;
+    private List<BullSkull>     bullskull;
+    private List<Dragon>        dragon;
+    private List<Food>          food;
+    private List<Skull>         skull;
+    private List<Spear>         spear;
+    private List<Stars>         stars;
+    private List<Armour>        armour;
 
     // CREATE A PLAYER INSTANCE
     public Player player;
@@ -99,6 +107,15 @@ public class Level implements Disposable
         this.exit         = new Vector2();
         this.gems         = new ArrayList<>();
         this.enamies      = new ArrayList<>();
+        this.axe          = new ArrayList<>();
+        this.bowl         = new ArrayList<>();
+        this.bullskull    = new ArrayList<>();
+        this.dragon       = new ArrayList<>();
+        this.food         = new ArrayList<>();
+        this.skull        = new ArrayList<>();
+        this.spear        = new ArrayList<>();
+        this.stars        = new ArrayList<>();
+        this.armour       = new ArrayList<>();
 
         // LOAD THE TILES
         LoadTiles(fileStream);
@@ -196,7 +213,15 @@ public class Level implements Disposable
 
             case 'A':
                 // LOAD ALL THE ENEMY
-                return LoadEnemiesTile(x * Tile.Width, y * Tile.Height + 30);
+                return LoadEnemiesTile(x * Tile.Width, y * Tile.Height + 30, 0);
+
+            case 'B':
+                // LOAD ALL THE ENEMY
+                return LoadEnemiesTile(x * Tile.Width, y * Tile.Height + 30, 1);
+
+            case 'C':
+                // LOAD ALL THE ENEMY
+                return LoadEnemiesTile(x * Tile.Width, y * Tile.Height + 30, 2);
 
             case 'G':
                 // LOAD ALL THE GEMS
@@ -231,7 +256,7 @@ public class Level implements Disposable
                 return LoadTile(block, TileCollision.Impassable);
 
             case 'X':
-                return LoadExitTile(x  * Tile.Width, y  * Tile.Height);
+                return LoadExitTile(x * Tile.Width, y * Tile.Height);
 
             case '1':
                 return LoadStartTile(x * Tile.Width, y * Tile.Height);
@@ -242,6 +267,42 @@ public class Level implements Disposable
 
             case 'P':
                 return LoadTile(Assets.BlockARegion, TileCollision.Checkpoint);
+
+            case 'E':
+               // LOAD ALL THE AXE
+               return LoadAxeTile(x * Tile.Width, y * Tile.Height);
+
+            case 'F':
+                // LOAD ALL THE BOWL
+                return LoadBowlTile(x * Tile.Width, y * Tile.Height);
+
+            case 'I':
+                // LOAD ALL THE BULLSKULL
+                return LoadBullskullTile(x * Tile.Width, y * Tile.Height);
+
+            case 'O':
+                // LOAD ALL THE DRAGON
+                return LoadDragonTile(x * Tile.Width, y * Tile.Height);
+
+            case 'J':
+                // LOAD ALL THE FOOD
+                return LoadFoodTile(x * Tile.Width, y * Tile.Height);
+
+            case 'K':
+                // LOAD ALL THE SKULL
+                return LoadSkullTile(x * Tile.Width, y * Tile.Height);
+
+            case 'L':
+                // LOAD ALL THE SPEAR
+                return LoadSpearTile(x * Tile.Width, y * Tile.Height);
+
+            case 'N':
+                // LOAD ALL THE STARS
+                return LoadStarsTile(x * Tile.Width, y * Tile.Height);
+
+            case 'Q':
+                // LOAD ALL THE STARS
+                return LoadArmourTile(x * Tile.Width, y * Tile.Height);
 
             default:
                 throw new UnsupportedOperationException("Unsupported tile type character");
@@ -261,7 +322,7 @@ public class Level implements Disposable
     {
         exitbounds = new Rectangle(x , y, 0.6f, 0.6f);
 
-        return LoadTile(Assets.ExitRegion, TileCollision.Passable);
+        return LoadTile(Assets.ExitRegion, TileCollision.Passable );
     }
 
     /// <summary>
@@ -276,15 +337,15 @@ public class Level implements Disposable
         player = new Player(this, new Vector2(x, y));
 
         // RETURN TILE VALUE
-        return new Tile(null, TileCollision.Passable);
+        return new Tile(null, TileCollision.Passable );
     }
 
     /// <summary>
     /// Instantiates an enemy A and puts him in the level.
     /// </summary>
-    private Tile LoadEnemiesTile(int x, int y)
+    private Tile LoadEnemiesTile(int x, int y, int iType)
     {
-        Enemy ENEMY = new Enemy(this, new Vector2(x, y));
+        Enemy ENEMY = new Enemy(this, new Vector2(x, y), iType);
         this.enamies.add(ENEMY);
 
         return new Tile(null, TileCollision.Passable);
@@ -300,6 +361,106 @@ public class Level implements Disposable
 
         return new Tile(null, TileCollision.Passable);
     }
+
+    /// <summary>
+    /// Instantiates a armour and put it in the level.
+    /// </summary>
+    private Tile LoadArmourTile(int x, int y)
+    {
+        Armour ARMOUR = new Armour(x, y);
+        this.armour.add(ARMOUR);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a axe and put it in the level.
+    /// </summary>
+    private Tile LoadAxeTile(int x, int y)
+    {
+        Axe AXE = new Axe(x, y);
+        this.axe.add(AXE);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a bowl and put it in the level.
+    /// </summary>
+    private Tile LoadBowlTile(int x, int y)
+    {
+        Bowl BOWL = new Bowl(x, y);
+        this.bowl.add(BOWL);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a bullskull and put it in the level.
+    /// </summary>
+    private Tile LoadBullskullTile(int x, int y)
+    {
+        BullSkull BULLSKULL = new BullSkull(x, y);
+        this.bullskull.add(BULLSKULL);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a dragon and put it in the level.
+    /// </summary>
+    private Tile LoadDragonTile(int x, int y)
+    {
+        Dragon DRAGON = new Dragon(x, y);
+        this.dragon.add(DRAGON);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a food and put it in the level.
+    /// </summary>
+    private Tile LoadFoodTile(int x, int y)
+    {
+        Food FOOD = new Food(x, y);
+        this.food.add(FOOD);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a food and put it in the level.
+    /// </summary>
+    private Tile LoadSkullTile(int x, int y)
+    {
+        Skull SKULL = new Skull(x, y);
+        this.skull.add(SKULL);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a food and put it in the level.
+    /// </summary>
+    private Tile LoadSpearTile(int x, int y)
+    {
+        Spear SPEAR = new Spear( x, y);
+        this.spear.add(SPEAR);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a food and put it in the level.
+    /// </summary>
+    private Tile LoadStarsTile(int x, int y)
+    {
+        Stars STAR = new Stars( x, y);
+        this.stars.add(STAR);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
 
 
     // HAS THE PLAYER COLLIDED WITH ANY GAME OBJECTS
@@ -339,6 +500,123 @@ public class Level implements Disposable
         {
             Gem GEM = this.gems.get(i);
             GEM.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE AXE TILE
+    /////////////////////////////////////////////
+    public void updateAxe(float deltaTime)
+    {
+        int len = this.axe.size();
+        for(int i = 0; i < len; i++)
+        {
+            Axe AXE = this.axe.get(i);
+            AXE.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE BOWL TILE
+    /////////////////////////////////////////////
+    public void updateBowl(float deltaTime)
+    {
+        int len = this.bowl.size();
+        for(int i = 0; i < len; i++)
+        {
+            Bowl BOWL = this.bowl.get(i);
+            BOWL.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE BOWL TILE
+    /////////////////////////////////////////////
+    public void updateBullskull(float deltaTime)
+    {
+        int len = this.bullskull.size();
+        for(int i = 0; i < len; i++)
+        {
+            BullSkull BULLSKULL = this.bullskull.get(i);
+            BULLSKULL.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE DRAGON TILE
+    /////////////////////////////////////////////
+    public void updateDragon(float deltaTime)
+    {
+        int len = this.dragon.size();
+        for(int i = 0; i < len; i++)
+        {
+            Dragon DRAGON = this.dragon.get(i);
+            DRAGON.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE FOOD TILE
+    /////////////////////////////////////////////
+    public void updateFood(float deltaTime)
+    {
+        int len = this.food.size();
+        for(int i = 0; i < len; i++)
+        {
+            Food FOOD = this.food.get(i);
+            FOOD.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE SKULL TILE
+    /////////////////////////////////////////////
+    public void updateSkull(float deltaTime)
+    {
+        int len = this.skull.size();
+        for(int i = 0; i < len; i++)
+        {
+            Skull SKULL = this.skull.get(i);
+            SKULL.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE SPEAR TILE
+    /////////////////////////////////////////////
+    public void updateSpear(float deltaTime)
+    {
+        int len = this.spear.size();
+        for(int i = 0; i < len; i++)
+        {
+            Spear SPEAR = this.spear.get(i);
+            SPEAR.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE SPEAR TILE
+    /////////////////////////////////////////////
+    public void updateStars(float deltaTime)
+    {
+        int len = this.stars.size();
+        for(int i = 0; i < len; i++)
+        {
+            Stars STARS = this.stars.get(i);
+            STARS.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE SPEAR TILE
+    /////////////////////////////////////////////
+    public void updateArmour(float deltaTime)
+    {
+        int len = this.armour.size();
+        for(int i = 0; i < len; i++)
+        {
+            Armour ARMOUR = this.armour.get(i);
+            ARMOUR.Update(deltaTime);
         }
     }
 
@@ -440,6 +718,16 @@ public class Level implements Disposable
             updateObjectCollisions();
             updateEnemies(deltaTime);
 
+            updateAxe(deltaTime);
+            updateBowl(deltaTime);
+            updateBullskull(deltaTime);
+            updateDragon(deltaTime);
+            updateFood(deltaTime);
+            updateSkull(deltaTime);
+            updateSpear(deltaTime);
+            updateStars(deltaTime);
+            updateArmour(deltaTime);
+
             // DID THE USER HIT THE EXIT
             if (OverlapTester.overlapRectangles(exitbounds, player.bounds))
                 OnExitReached();
@@ -530,6 +818,69 @@ public class Level implements Disposable
         {
             Enemy ENEMY = this.enamies.get(i);
             ENEMY.Draw(this.spritebatcher);
+        }
+
+        len = this.axe.size();
+        for(int i = 0; i < len; i++)
+        {
+            Axe AXE = this.axe.get(i);
+            AXE.Draw(this.spritebatcher);
+        }
+
+        len = this.bowl.size();
+        for(int i = 0; i < len; i++)
+        {
+            Bowl BOWL = this.bowl.get(i);
+            BOWL.Draw(this.spritebatcher);
+        }
+
+        len = this.bullskull.size();
+        for(int i = 0; i < len; i++)
+        {
+            BullSkull BULLSKULL = this.bullskull.get(i);
+            BULLSKULL.Draw(this.spritebatcher);
+        }
+
+        len = this.dragon.size();
+        for(int i = 0; i < len; i++)
+        {
+            Dragon DRAGON = this.dragon.get(i);
+            DRAGON.Draw(this.spritebatcher);
+        }
+
+        len = this.food.size();
+        for(int i = 0; i < len; i++)
+        {
+            Food FOOD = this.food.get(i);
+            FOOD.Draw(this.spritebatcher);
+        }
+
+        len = this.skull.size();
+        for(int i = 0; i < len; i++)
+        {
+            Skull SKULL = this.skull.get(i);
+            SKULL.Draw(this.spritebatcher);
+        }
+
+        len = this.spear.size();
+        for(int i = 0; i < len; i++)
+        {
+            Spear SPEAR = this.spear.get(i);
+            SPEAR.Draw(this.spritebatcher);
+        }
+
+        len = this.stars.size();
+        for(int i = 0; i < len; i++)
+        {
+            Stars STARS = this.stars.get(i);
+            STARS.Draw(this.spritebatcher);
+        }
+
+        len = this.armour.size();
+        for(int i = 0; i < len; i++)
+        {
+            Armour ARMOUR = this.armour.get(i);
+            ARMOUR.Draw(this.spritebatcher);
         }
 
         // DRAW THE PLAYER

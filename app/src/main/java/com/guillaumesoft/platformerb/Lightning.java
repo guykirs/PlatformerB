@@ -12,7 +12,7 @@ import com.badlogic.androidgames.framework.math.Vector2;
 ///  GUILLAUME SWOLFS
 ///  GUILLAUMESOFT
 /// </summary>
-class Gem extends DynamicGameObject
+class Lightning extends DynamicGameObject
 {
     //////////////////////////////////////////////
     // CLASS STATIC VARAIBLES
@@ -28,7 +28,7 @@ class Gem extends DynamicGameObject
     /// <summary>
     /// Constructs a new gem.
     /// </summary>
-    public Gem(float x, float y)
+    public Lightning(float x, float y)
     {
         super(x, y, GEM_WIDTH, GEM_HEIGHT);
     }
@@ -64,9 +64,10 @@ class Gem extends DynamicGameObject
     {
         batcher.beginBatch(Assets.tile);
 
-           batcher.drawSprite(position.x, position.y + bounce, GEM_WIDTH, GEM_HEIGHT, Assets.gemRegion);
+        batcher.drawSprite(position.x, position.y + bounce, GEM_WIDTH, GEM_HEIGHT, Assets.gemRegion);
 
         batcher.endBatch();
     }
 }
+
 

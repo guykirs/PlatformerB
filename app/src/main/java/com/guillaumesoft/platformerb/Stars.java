@@ -12,12 +12,12 @@ import com.badlogic.androidgames.framework.math.Vector2;
 ///  GUILLAUME SWOLFS
 ///  GUILLAUMESOFT
 /// </summary>
-class Gem extends DynamicGameObject
+class Stars extends DynamicGameObject
 {
     //////////////////////////////////////////////
     // CLASS STATIC VARAIBLES
-    public static float GEM_WIDTH  = 40.0f;
-    public static float GEM_HEIGHT = 40.0f;
+    public static float STARS_WIDTH  = 40.0f;
+    public static float STARS_HEIGHT = 40.0f;
 
     //////////////////////////////////////////////
     // CLASS VARAIBLES
@@ -28,9 +28,9 @@ class Gem extends DynamicGameObject
     /// <summary>
     /// Constructs a new gem.
     /// </summary>
-    public Gem(float x, float y)
+    public Stars(float x, float y)
     {
-        super(x, y, GEM_WIDTH, GEM_HEIGHT);
+        super(x, y, STARS_WIDTH, STARS_HEIGHT);
     }
 
     /// <summary>
@@ -54,19 +54,20 @@ class Gem extends DynamicGameObject
         final float BounceSync   = -0.75f;
 
         double t = stateTime * BounceRate + position.x * BounceSync;
-        bounce = (float)Math.sin(t) * BounceHeight * GEM_HEIGHT;
+        bounce = (float)Math.sin(t) * BounceHeight * STARS_HEIGHT;
     }
 
     /// <summary>
-    /// Draws a gem in the appropriate color.
+    /// Draws a spears in the appropriate color.
     /// </summary>
     public void Draw(SpriteBatcher batcher)
     {
-        batcher.beginBatch(Assets.tile);
+        batcher.beginBatch(Assets.objects);
 
-           batcher.drawSprite(position.x, position.y + bounce, GEM_WIDTH, GEM_HEIGHT, Assets.gemRegion);
+           batcher.drawSprite(position.x, position.y + bounce, STARS_WIDTH, STARS_HEIGHT, Assets.pickupstars);
 
         batcher.endBatch();
     }
 }
+
 

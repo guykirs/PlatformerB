@@ -90,7 +90,6 @@ public class Assets
     public static TextureRegion greenHealthRegion;
     public static TextureRegion redHealthRegion;
     public static TextureRegion blackHealthRegion;
-    // MESSAGE DIALOG
     public static TextureRegion ready;
     public static TextureRegion pauseMenu;
     public static TextureRegion gameOver;
@@ -98,6 +97,23 @@ public class Assets
     public static Animation goldCoins;
     public static Animation silverCoins;
     public static Animation bronzeCoins;
+
+    // GAME OBJECTS
+    public static Texture objects;
+    public static TextureRegion stars;
+    public static TextureRegion pickupstars;
+    public static TextureRegion barrel;
+    public static TextureRegion armour;
+    public static TextureRegion axe;
+    public static TextureRegion food;
+    public static TextureRegion bowl;
+    public static TextureRegion bullskull;
+    public static TextureRegion skull;
+    public static TextureRegion dragon;
+    public static TextureRegion spear;
+    public static TextureRegion chestA;
+    public static TextureRegion chestB;
+
 
     // GAME STATE DIALOG
     public static Texture messages;
@@ -138,6 +154,26 @@ public class Assets
 
     public static void load(GLGame game)
     {
+        objects     = new Texture(game, "objects.png");
+        stars       = new TextureRegion(objects , 0, 0, 64, 64);
+
+        pickupstars = new TextureRegion(objects , 64, 0, 64, 64);
+        barrel      = new TextureRegion(objects , 128, 0, 64, 64);
+        armour      = new TextureRegion(objects , 192, 0, 64, 64);
+        axe         = new TextureRegion(objects , 256, 0, 64, 64);
+        food        = new TextureRegion(objects , 320, 0, 64, 64);
+
+        bowl        = new TextureRegion(objects ,   0, 64, 64, 64);
+
+        bullskull  = new TextureRegion(objects ,  64, 64, 64, 64);
+        skull      = new TextureRegion(objects , 128, 64, 64, 64);
+        dragon     = new TextureRegion(objects , 192, 64, 64, 64);
+        spear      = new TextureRegion(objects , 260, 64, 64, 64);
+        chestA     = new TextureRegion(objects , 320, 64, 64, 64);
+        chestB     = new TextureRegion(objects , 384, 64, 64, 64);
+
+
+
         layer00 = new Texture(game, "layer00.png");
         layer00Region = new TextureRegion(layer00 , 0, 0, 512, 512);
 
@@ -184,9 +220,9 @@ public class Assets
         buttonY   = new TextureRegion(items, 128, 0, 64, 64);
         buttonA   = new TextureRegion(items, 192, 0, 64, 64);
 
-        blackHealthRegion = new TextureRegion(items, 0,  64, 128, 32);
-        greenHealthRegion = new TextureRegion(items, 0,  96, 128, 32);
-        redHealthRegion   = new TextureRegion(items, 0, 128, 128, 32);
+        blackHealthRegion = new TextureRegion(items, 0,  64, 128, 52);
+        redHealthRegion   = new TextureRegion(items, 0, 138, 128, 32);
+        greenHealthRegion = new TextureRegion(items, 0, 112, 128, 32);
 
         ready     = new TextureRegion(items, 320, 224, 192, 32);
         pauseMenu = new TextureRegion(items, 224, 128, 192, 96);

@@ -3,6 +3,7 @@ package com.guillaumesoft.platformerb;
 import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.badlogic.androidgames.framework.gl.Animation;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
+import com.badlogic.androidgames.framework.gl.Texture;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.Clamp;
 import com.badlogic.androidgames.framework.math.Vector2;
@@ -33,11 +34,12 @@ class Enemy extends DynamicGameObject
     private float waitTime;
     private int side = 0;
     private Level level;
+    private int Character;
 
     /// <summary>
     /// Constructs a new Enemy.
     /// </summary>
-    public Enemy(Level level, Vector2 position)
+    public Enemy(Level level, Vector2 position, int iType)
     {
         super(position.x, position.y, ENEMY_WIDTH, ENEMY_HEIGHT);
 
@@ -52,6 +54,8 @@ class Enemy extends DynamicGameObject
         isAlive = true;
 
         side = -1;
+
+        Character = iType;
     }
 
     /// <summary>
@@ -113,7 +117,7 @@ class Enemy extends DynamicGameObject
                 else
                 {
                     //If we are about to run into a wall or off a cliff, start waiting.
-                    if ((level.GetCollision(tileX, tileY - 1) == TileCollision.Impassable)||(level.GetCollision(tileX, tileY - 1) == TileCollision.Checkpoint))
+                    if ((level.GetCollision(tileX - side , tileY - 1) == TileCollision.Impassable)||(level.GetCollision(tileX - side, tileY - 1) == TileCollision.Checkpoint))
                     {
                         state = MONSTER_STATE_WALK;
 
@@ -170,28 +174,81 @@ class Enemy extends DynamicGameObject
     /// </summary>
     public void Draw( SpriteBatcher batcher)
     {
-        TextureRegion keyFrame;
-        switch (state)
+        TextureRegion keyFrame = null;
+
+        switch(Character)
         {
-            case MONSTER_STATE_IDLE:
-                keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+            case 0:
+                switch (state)
+                {
+
+                    case MONSTER_STATE_IDLE:
+                        keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+                        break;
+                    case MONSTER_STATE_WALK:
+                        keyFrame = Assets.monsterRunA.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+                        break;
+                    case MONSTER_STATE_KILLED:
+                        keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        break;
+                    default:
+                        keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        break;
+                }
+
+                batcher.beginBatch(Assets.monsterA);
+
+                  batcher.drawSprite(position.x + Tile.Height, position.y, side * ENEMY_WIDTH, ENEMY_HEIGHT, keyFrame);
+
+                batcher.endBatch();
                 break;
-            case MONSTER_STATE_WALK:
-                keyFrame = Assets.monsterRunA.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+            case 1:
+                switch (state)
+                {
+
+                    case MONSTER_STATE_IDLE:
+                        keyFrame = Assets.monsterIdleB.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+                        break;
+                    case MONSTER_STATE_WALK:
+                        keyFrame = Assets.monsterRunB.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+                        break;
+                    case MONSTER_STATE_KILLED:
+                        keyFrame = Assets.monsterIdleB.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        break;
+                    default:
+                        keyFrame = Assets.monsterIdleB.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        break;
+                }
+                batcher.beginBatch(Assets.monsterB);
+
+                   batcher.drawSprite(position.x + Tile.Height, position.y, side * ENEMY_WIDTH, ENEMY_HEIGHT, keyFrame);
+
+                batcher.endBatch();
                 break;
-            case MONSTER_STATE_KILLED:
-                keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
-                break;
-            default:
-                keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+            case 2:
+                switch (state)
+                {
+
+                    case MONSTER_STATE_IDLE:
+                        keyFrame = Assets.monsterIdleC.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+                        break;
+                    case MONSTER_STATE_WALK:
+                        keyFrame = Assets.monsterRunC.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
+                        break;
+                    case MONSTER_STATE_KILLED:
+                        keyFrame = Assets.monsterIdleC.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        break;
+                    default:
+                        keyFrame = Assets.monsterIdleC.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        break;
+                }
+                batcher.beginBatch(Assets.monsterC);
+
+                   batcher.drawSprite(position.x + Tile.Height, position.y, side * ENEMY_WIDTH, ENEMY_HEIGHT, keyFrame);
+
+                batcher.endBatch();
                 break;
         }
-
-        batcher.beginBatch(Assets.monsterA);
-
-           batcher.drawSprite(position.x + Tile.Height, position.y, side * ENEMY_WIDTH, ENEMY_HEIGHT, keyFrame);
-
-        batcher.endBatch();
     }
 }
 

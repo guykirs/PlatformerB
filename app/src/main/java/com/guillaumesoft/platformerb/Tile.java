@@ -1,5 +1,6 @@
 package com.guillaumesoft.platformerb;
 
+import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.Vector2;
 
@@ -38,9 +39,9 @@ class Tile
     /////////////////////////////////////////
     /// Constructs a new tile.
     /// </summary>
-    public Tile( TextureRegion texture, TileCollision collision)
+    public Tile(TextureRegion texture, TileCollision collision)
     {
-        //super(x, y, TILE_WIDTH, TILE_HEIGHT);
+
         this.texture = texture;
         Collision    = collision;
     }
