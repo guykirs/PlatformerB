@@ -36,6 +36,9 @@ class Enemy extends DynamicGameObject
     private Level level;
     private int Character;
 
+    private final float deathTimeMax = 1.0f;
+    public float deathTime = deathTimeMax;
+
     /// <summary>
     /// Constructs a new Enemy.
     /// </summary>
@@ -63,6 +66,9 @@ class Enemy extends DynamicGameObject
     /// </summary>
     public void Update(float deltaTime)
     {
+        if(!isAlive)
+           deathTime -= deltaTime;
+
         final float MaxWaitTime = 0.5f;
         final float MoveSpeed = 0.9f;
         final float MaxMoveSpeed = 1.5f;
@@ -189,7 +195,8 @@ class Enemy extends DynamicGameObject
                         keyFrame = Assets.monsterRunA.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
                         break;
                     case MONSTER_STATE_KILLED:
-                        keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        if(deathTime < deathTimeMax)
+                            keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
                         break;
                     default:
                         keyFrame = Assets.monsterIdleA.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
@@ -213,7 +220,8 @@ class Enemy extends DynamicGameObject
                         keyFrame = Assets.monsterRunB.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
                         break;
                     case MONSTER_STATE_KILLED:
-                        keyFrame = Assets.monsterIdleB.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+                        if(deathTime < deathTimeMax)
+                            keyFrame = Assets.monsterIdleB.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
                         break;
                     default:
                         keyFrame = Assets.monsterIdleB.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
@@ -236,7 +244,10 @@ class Enemy extends DynamicGameObject
                         keyFrame = Assets.monsterRunC.getKeyFrame(elapsed, Animation.ANIMATION_LOOPING);
                         break;
                     case MONSTER_STATE_KILLED:
-                        keyFrame = Assets.monsterIdleC.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+
+                        if(deathTime < deathTimeMax)
+                            keyFrame = Assets.monsterIdleC.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);
+
                         break;
                     default:
                         keyFrame = Assets.monsterIdleC.getKeyFrame(elapsed, Animation.ANIMATION_NONLOOPING);

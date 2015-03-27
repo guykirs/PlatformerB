@@ -1196,7 +1196,9 @@ public class Level implements Disposable
         for(int i = 0; i < len; i++)
         {
             Enemy ENEMY = this.enamies.get(i);
-            ENEMY.Draw(this.spritebatcher);
+
+            if(ENEMY.isAlive)
+               ENEMY.Draw(this.spritebatcher);
         }
 
         len = this.axe.size();
