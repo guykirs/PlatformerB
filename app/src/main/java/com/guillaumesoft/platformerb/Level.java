@@ -93,6 +93,8 @@ public class Level implements Disposable
     private List<Spear>         spear;
     private List<Stars>         stars;
     private List<Armour>        armour;
+    private List<Barrel>        barrel;
+    private List<Fire>          fire;
 
     // CREATE A PLAYER INSTANCE
     public Player player;
@@ -116,6 +118,8 @@ public class Level implements Disposable
         this.spear        = new ArrayList<>();
         this.stars        = new ArrayList<>();
         this.armour       = new ArrayList<>();
+        this.barrel       = new ArrayList<>();
+        this.fire       = new ArrayList<>();
 
         // LOAD THE TILES
         LoadTiles(fileStream);
@@ -304,6 +308,14 @@ public class Level implements Disposable
                 // LOAD ALL THE STARS
                 return LoadArmourTile(x * Tile.Width, y * Tile.Height);
 
+            case 'R':
+                // LOAD ALL THE STARS
+                return LoadBarrelTile(x * Tile.Width, y * Tile.Height);
+
+            case 'T':
+                // LOAD THE FIRE
+               return LoadFireTile(x * Tile.Width, y * Tile.Height);
+
             default:
                 throw new UnsupportedOperationException("Unsupported tile type character");
         }
@@ -354,6 +366,17 @@ public class Level implements Disposable
     /// <summary>
     /// Instantiates a gem and put it in the level.
     /// </summary>
+    private Tile LoadFireTile(int x, int y)
+    {
+        Fire FIRE = new Fire(x, y);
+        this.fire.add(FIRE);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a gem and put it in the level.
+    /// </summary>
     private Tile LoadGemTile(int x, int y)
     {
         Gem GEM = new Gem(x, y);
@@ -380,6 +403,17 @@ public class Level implements Disposable
     {
         Axe AXE = new Axe(x, y);
         this.axe.add(AXE);
+
+        return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Instantiates a axe and put it in the level.
+    /// </summary>
+    private Tile LoadBarrelTile(int x, int y)
+    {
+        Barrel BARREL = new Barrel(x, y);
+        this.barrel.add(BARREL);
 
         return new Tile(null, TileCollision.Passable);
     }
@@ -513,6 +547,19 @@ public class Level implements Disposable
         {
             Axe AXE = this.axe.get(i);
             AXE.Update(deltaTime);
+        }
+    }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE BARREL TILE
+    /////////////////////////////////////////////
+    public void updateBarrel(float deltaTime)
+    {
+        int len = this.barrel.size();
+        for(int i = 0; i < len; i++)
+        {
+            Barrel BARREL = this.barrel.get(i);
+            BARREL.Update(deltaTime);
         }
     }
 
@@ -688,6 +735,20 @@ public class Level implements Disposable
     {
         player.OnKilled();
     }
+
+    /////////////////////////////////////////////
+    // UPDATE THE THE FIRE TILE
+    /////////////////////////////////////////////
+    public void updateFire(float deltaTime)
+    {
+        int len = this.fire.size();
+        for(int i = 0; i < len; i++)
+        {
+            Fire FIRE = this.fire.get(i);
+            FIRE.Update(deltaTime);
+        }
+    }
+
     /////////////////////////////////////////////////////////////
     // LEVEL UPDATE FUNCTION
     public void update(float deltaTime,  OuyaController  gamePadState)
@@ -727,6 +788,8 @@ public class Level implements Disposable
             updateSpear(deltaTime);
             updateStars(deltaTime);
             updateArmour(deltaTime);
+            updateBarrel(deltaTime);
+            updateFire(deltaTime);
 
             // DID THE USER HIT THE EXIT
             if (OverlapTester.overlapRectangles(exitbounds, player.bounds))
@@ -881,6 +944,20 @@ public class Level implements Disposable
         {
             Armour ARMOUR = this.armour.get(i);
             ARMOUR.Draw(this.spritebatcher);
+        }
+
+        len = this.barrel.size();
+        for(int i = 0; i < len; i++)
+        {
+            Barrel BARREL = this.barrel.get(i);
+            BARREL.Draw(this.spritebatcher);
+        }
+
+        len = this.fire.size();
+        for(int i = 0; i < len; i++)
+        {
+            Fire FIRE = this.fire.get(i);
+            FIRE.Draw(this.spritebatcher);
         }
 
         // DRAW THE PLAYER
