@@ -522,6 +522,213 @@ public class Level implements Disposable
             }
             i++;
         }
+
+        i = 0;
+
+        // barrel
+        Iterator<Barrel> BARREL = barrel.iterator();
+
+        while(BARREL.hasNext())
+        {
+            Barrel obj = BARREL.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                barrel.remove(i);
+
+                OnBarrelCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // axe
+        Iterator<Axe> AXE = axe.iterator();
+
+        while(AXE.hasNext())
+        {
+            Axe obj = AXE.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                axe.remove(i);
+
+                OnAxeCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // bowl
+        Iterator<Bowl> BOWL = bowl.iterator();
+
+        while(BOWL.hasNext())
+        {
+            Bowl obj = BOWL.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                bowl.remove(i);
+
+                OnBowlCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // bullskull
+        Iterator<BullSkull> BULLSKULL = bullskull.iterator();
+
+        while(BULLSKULL.hasNext())
+        {
+            BullSkull obj = BULLSKULL.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                bullskull.remove(i);
+
+                OnBullskullCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // dragon
+        Iterator<Dragon> DRAGON = dragon.iterator();
+
+        while(DRAGON.hasNext())
+        {
+            Dragon obj = DRAGON.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                dragon.remove(i);
+
+                OnDragonCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // dragon
+        Iterator<Food> FOOD = food.iterator();
+
+        while(FOOD.hasNext())
+        {
+            Food obj = FOOD.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                food.remove(i);
+
+                OnFoodCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // dragon
+        Iterator<Skull> SKULL = skull.iterator();
+
+        while(SKULL.hasNext())
+        {
+            Skull obj = SKULL.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                skull.remove(i);
+
+                OnSkullCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // pickup spear
+        Iterator<Spear> SPEAR = spear.iterator();
+
+        while(SPEAR.hasNext())
+        {
+            Spear obj = SPEAR.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                spear.remove(i);
+
+                OnSpearCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+
+        // pickup stars
+        Iterator<Stars> STARS = stars.iterator();
+
+        while(STARS.hasNext())
+        {
+            Stars obj = STARS.next();
+
+            if (OverlapTester.overlapRectangles(player.bounds, obj.bounds))
+            {
+                if(Settings.soundEnabled)
+                    Assets.playSound(Assets.gemCollected);
+
+                stars.remove(i);
+
+                OnStarsCollected(obj, player);
+
+                break;
+            }
+            i++;
+        }
     }
 
     /////////////////////////////////////////////
@@ -601,6 +808,7 @@ public class Level implements Disposable
             DRAGON.Update(deltaTime);
         }
     }
+
 
     /////////////////////////////////////////////
     // UPDATE THE THE FOOD TILE
@@ -712,7 +920,7 @@ public class Level implements Disposable
     }
 
     /// <summary>
-    /// Called when a gem is collected.
+    /// Called when a axe is collected.
     /// </summary>
     /// <param name="gem">The gem that was collected.</param>
     /// <param name="collectedBy">The player who collected this gem.</param>
@@ -721,6 +929,114 @@ public class Level implements Disposable
         score += gem.PointValue;
 
         gem.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a gem is collected.
+    /// </summary>
+    /// <param name="barrel">The barrel that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnBarrelCollected(Barrel barrel, Player collectedBy)
+    {
+        score += barrel.PointValue;
+
+        barrel.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a axe is collected.
+    /// </summary>
+    /// <param name="axe">The axe that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnAxeCollected(Axe axe, Player collectedBy)
+    {
+        score += axe.PointValue;
+
+        axe.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a bowl is collected.
+    /// </summary>
+    /// <param name="bowl">The bowl that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnBowlCollected(Bowl bowl, Player collectedBy)
+    {
+        score += bowl.PointValue;
+        bowl.OnCollected(collectedBy);
+    }
+
+
+    /// <summary>
+    /// Called when a bullskull is collected.
+    /// </summary>
+    /// <param name="bullskull">The bullskull that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnBullskullCollected(BullSkull bullskull, Player collectedBy)
+    {
+        score += bullskull.PointValue;
+
+        bullskull.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a dragon is collected.
+    /// </summary>
+    /// <param name="dragon">The dragon that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnDragonCollected(Dragon dragon, Player collectedBy)
+    {
+        score += dragon.PointValue;
+
+        dragon.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a food is collected.
+    /// </summary>
+    /// <param name="food">The food that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnFoodCollected(Food food, Player collectedBy)
+    {
+        score += food.PointValue;
+
+        food.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a skull is collected.
+    /// </summary>
+    /// <param name="skull">The skull that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnSkullCollected(Skull skull, Player collectedBy)
+    {
+        score += skull.PointValue;
+
+        skull.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a spear is collected.
+    /// </summary>
+    /// <param name="spear">The spear that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnSpearCollected(Spear spear, Player collectedBy)
+    {
+        score += spear.PointValue;
+
+        spear.OnCollected(collectedBy);
+    }
+
+    /// <summary>
+    /// Called when a spear is collected.
+    /// </summary>
+    /// <param name="spear">The spear that was collected.</param>
+    /// <param name="collectedBy">The player who collected this gem.</param>
+    private void OnStarsCollected(Stars star, Player collectedBy)
+    {
+        score += star.PointValue;
+
+        star.OnCollected(collectedBy);
     }
 
 
